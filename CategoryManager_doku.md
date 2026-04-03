@@ -1,5 +1,11 @@
 # File Organizer: CategoryManager
 
+!!! tip "Online-Dokumentation verfügbar"
+    Diese Dokumentation ist vollständig auf der offiziellen Seite verfügbar.
+    Für die beste Lesbarkeit direkt dort öffnen:
+
+    **[https://ims-module1.gitlab.io/Qemals_Dokumentationen/CategoryManager_doku/](https://ims-module1.gitlab.io/Qemals_Dokumentationen/CategoryManager_doku/)**
+
 !!! info "Projektkontext"
     Der `CategoryManager` ist eine Klasse im Projekt **File Organizer**. Sie ist zuständig für die Zuordnung von Dateiendungen zu Zielordnern. Dieses Dokument zeigt den Aufbau der Klasse, die Testmethode und mögliche Erweiterungen.
 
