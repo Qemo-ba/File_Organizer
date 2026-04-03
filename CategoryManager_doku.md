@@ -113,7 +113,8 @@ Console.WriteLine("Ordner für .pdf: " + categoryManager.GetTargetFolder(".pdf")
 
 ### Konsolenausgabe
 
-![Konsolenausgabe des Programms](assets/probe_CategoryManager.png)
+![Konsolenausgabe des Programms](projekt_bilder/probe_CategoryManager.png)
+
 *Die Ausgabe zeigt zuerst den vollständigen Dictionary-Inhalt, danach die Ergebnisse der einzelnen Abfragen.*
 
 !!! success "Ergebnis"
