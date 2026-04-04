@@ -8,7 +8,15 @@ namespace File_Organizer
         {
             Console.WriteLine("Dictionary wird erstellt... ");
             CategoryManager categoryManager = new CategoryManager();
+            FileOrganizer fileOrganizer = new FileOrganizer("", categoryManager);
 
+
+            Console.WriteLine("\nDateien werden organisiert... ");
+            fileOrganizer.StartOrganizing(); 
+            Console.WriteLine("\nDateien wurden organisiert!");
+
+
+            /* Test
             Console.WriteLine("\nOrdner für jeweilige Dateitypen wird ermittelt... ");
             Console.WriteLine("\nBilder");
             Console.WriteLine("Ordner für .jpg: " + categoryManager.GetTargetFolder(".jpg"));
@@ -24,6 +32,8 @@ namespace File_Organizer
             Console.WriteLine("\nExcel");
             Console.WriteLine("Ordner für .xlsx: " + categoryManager.GetTargetFolder(".xlsx"));
             Console.WriteLine("Ordner für .xls " + categoryManager.GetTargetFolder(".xls"));
+            */
+            
         }
     }
 }
