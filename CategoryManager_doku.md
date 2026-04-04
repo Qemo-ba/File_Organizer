@@ -1,5 +1,8 @@
 # File Organizer: CategoryManager
 
+> **Hinweis:** Diese Datei ist für MkDocs optimiert und wird in der Repo-Ansicht nicht korrekt dargestellt.
+> Zur vollständigen Dokumentation: <a href="https://ims-module1.gitlab.io/Qemals_Dokumentationen/CategoryManager_doku/" target="_blank">Zur Dokumentation</a>
+
 !!! info "Projektkontext"
     Der `CategoryManager` ist eine Klasse im Projekt **File Organizer**. Sie ist zuständig für die Zuordnung von Dateiendungen zu Zielordnern. Dieses Dokument zeigt den Aufbau der Klasse, die Testmethode und mögliche Erweiterungen.
 
@@ -113,7 +116,8 @@ Console.WriteLine("Ordner für .pdf: " + categoryManager.GetTargetFolder(".pdf")
 
 ### Konsolenausgabe
 
-![Konsolenausgabe des Programms](assets/probe_CategoryManager.png)
+![Konsolenausgabe des Programms](projekt_bilder/probe_CategoryManager.png)
+
 *Die Ausgabe zeigt zuerst den vollständigen Dictionary-Inhalt, danach die Ergebnisse der einzelnen Abfragen.*
 
 !!! success "Ergebnis"
