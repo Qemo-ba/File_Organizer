@@ -11,21 +11,18 @@ namespace File_Organizer
             Console.WriteLine("Geben Sie den Pfad zum Ordner ein, den Sie organisieren möchten:");
             string path = Console.ReadLine();
 
-            if (Directory.Exists(path))
+            while (!Directory.Exists(path))
             {
-
-                CategoryManager categoryManager = new CategoryManager();
-                FileOrganizer fileOrganizer = new FileOrganizer(path, categoryManager);
-                Console.WriteLine("\nDateien werden organisiert... ");
-                fileOrganizer.StartOrganizing();
-                Console.WriteLine("Dateien wurden organisiert!");
-            }
-            else 
-            {
-                Console.WriteLine("Pfad existiert nicht!");
-                Console.WriteLine("richtiges pfad eingeben:");
+                Console.WriteLine("Der eingegebene Pfad ist ungültig. Bitte geben Sie einen gültigen Pfad ein:");
                 path = Console.ReadLine();
             }
+
+            CategoryManager categoryManager = new CategoryManager();
+            FileOrganizer fileOrganizer = new FileOrganizer(path, categoryManager);
+            Console.WriteLine("\nDateien werden organisiert... ");
+            fileOrganizer.StartOrganizing();
+            Console.WriteLine("Dateien wurden organisiert!");
+            
         }
     }
 }
