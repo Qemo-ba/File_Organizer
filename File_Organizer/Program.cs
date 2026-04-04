@@ -1,39 +1,31 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace File_Organizer
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Dictionary wird erstellt... ");
-            CategoryManager categoryManager = new CategoryManager();
-            FileOrganizer fileOrganizer = new FileOrganizer("", categoryManager);
-
-
-            Console.WriteLine("\nDateien werden organisiert... ");
-            fileOrganizer.StartOrganizing(); 
-            Console.WriteLine("\nDateien wurden organisiert!");
-
-
-            /* Test
-            Console.WriteLine("\nOrdner für jeweilige Dateitypen wird ermittelt... ");
-            Console.WriteLine("\nBilder");
-            Console.WriteLine("Ordner für .jpg: " + categoryManager.GetTargetFolder(".jpg"));
-            Console.WriteLine("Ordner für .png " + categoryManager.GetTargetFolder(".png"));
-            Console.WriteLine("\nDokumente");
-            Console.WriteLine("Ordner für .pdf: " + categoryManager.GetTargetFolder(".pdf"));
-            Console.WriteLine("Ordner für .docx: " + categoryManager.GetTargetFolder(".docx"));
-            Console.WriteLine("\nVideos");
-            Console.WriteLine("Ordner für .mp4: " + categoryManager.GetTargetFolder(".mp4"));
-            Console.WriteLine("\npowerpoint");
-            Console.WriteLine("Ordner für .pptx: " + categoryManager.GetTargetFolder(".pptx"));
-            Console.WriteLine("Ordner für .ppt " + categoryManager.GetTargetFolder(".ppt"));
-            Console.WriteLine("\nExcel");
-            Console.WriteLine("Ordner für .xlsx: " + categoryManager.GetTargetFolder(".xlsx"));
-            Console.WriteLine("Ordner für .xls " + categoryManager.GetTargetFolder(".xls"));
-            */
             
+            Console.WriteLine("Geben Sie den Pfad zum Ordner ein, den Sie organisieren möchten:");
+            string path = Console.ReadLine();
+
+            if (Directory.Exists(path))
+            {
+
+                CategoryManager categoryManager = new CategoryManager();
+                FileOrganizer fileOrganizer = new FileOrganizer(path, categoryManager);
+                Console.WriteLine("\nDateien werden organisiert... ");
+                fileOrganizer.StartOrganizing();
+                Console.WriteLine("Dateien wurden organisiert!");
+            }
+            else 
+            {
+                Console.WriteLine("Pfad existiert nicht!");
+                Console.WriteLine("richtiges pfad eingeben:");
+                path = Console.ReadLine();
+            }
         }
     }
 }

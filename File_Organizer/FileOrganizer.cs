@@ -10,16 +10,8 @@ namespace File_Organizer
         private CategoryManager _categoryManager;
 
         public FileOrganizer(string path, CategoryManager categoryManager)
-        {
-            if (path == "")
-            {
-                _rootPath = "C:\\Users\\qemal\\testfolder";
-            }
-            else 
-            {
-                _rootPath = path;
-            }
-            
+        { 
+            _rootPath = path;
             _categoryManager = categoryManager;
         }
 

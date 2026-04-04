@@ -14,7 +14,6 @@ namespace File_Organizer
             RegisterExtensions("powerpoints", ".pptx", ".ppt");
             RegisterExtensions("excel", ".xlsx", ".xls");
             RegisterExtensions("videos", ".mp4");
-            _extensionMapping.SelectMany(kvp => new[] { $"{kvp.Key} => {kvp.Value}" }).ToList().ForEach(Console.WriteLine);
         }
 
         private void RegisterExtensions(string folder, params string[] extensions)
