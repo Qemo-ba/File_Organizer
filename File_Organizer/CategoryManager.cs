@@ -4,7 +4,7 @@ using System.Text;
 
 namespace File_Organizer
 {
-    internal class CategoryManager
+    public class CategoryManager
     {
         private Dictionary<string, string> _extensionMapping = new Dictionary<string, string>();
 
@@ -20,18 +20,17 @@ namespace File_Organizer
         {
             foreach (var extension in extensions)
             {
-                _extensionMapping.Add(extension.ToLower(), folder);
+                _extensionMapping.Add(extension, folder);
             }
         }
 
         public string GetTargetFolder(string extension)
         {
-            string ext = extension.ToLower();
-            if (_extensionMapping.ContainsKey(ext))
+            if (string.IsNullOrEmpty(extension) || !_extensionMapping.ContainsKey(extension.ToLower()))
             {
-                return _extensionMapping[ext];
+                return "other";
             }
-            return "other";
+            return _extensionMapping[extension.ToLower()];
         }
 
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace File_Organizer
 {
-    internal class FileOrganizer
+    public class FileOrganizer
     {
         private string _rootPath;
         private CategoryManager _categoryManager;

@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="File_Organizer.tests/File_Organizer.tests.csproj" Id="0549a7c5-a913-4f23-ac27-6758f62278f0" />
   <Project Path="File_Organizer/File_Organizer.csproj" />
 </Solution>
