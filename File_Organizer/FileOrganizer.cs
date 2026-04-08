@@ -30,15 +30,15 @@ namespace File_Organizer
 
         private void MoveFileToFolder(string filePath, string targetFolder)
         {
-            string zielOrdner = Path.Combine(_rootPath, targetFolder);
-            string zielPfad = Path.Combine(zielOrdner, Path.GetFileName(filePath));
+            string pathFolder = Path.Combine(_rootPath, targetFolder);
+            string finalPath = Path.Combine(pathFolder, Path.GetFileName(filePath));
 
-            if (!Directory.Exists(zielOrdner))
+            if (!Directory.Exists(pathFolder))
             {
-                Directory.CreateDirectory(zielOrdner);
-                File.Move(filePath, zielPfad);
+                Directory.CreateDirectory(pathFolder);
+                File.Move(filePath, finalPath);
             } else {
-                File.Move(filePath, zielPfad);
+                File.Move(filePath, finalPath);
             }
         }
     }

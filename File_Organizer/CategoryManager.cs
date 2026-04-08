@@ -26,11 +26,11 @@ namespace File_Organizer
 
         public string GetTargetFolder(string extension)
         {
-            if (string.IsNullOrEmpty(extension) || !_extensionMapping.ContainsKey(extension.ToLower()))
+            if (string.IsNullOrEmpty(extension) || !_extensionMapping.ContainsKey(extension.Trim().ToLower()))
             {
                 return "other";
             }
-            return _extensionMapping[extension.ToLower()];
+            return _extensionMapping[extension.Trim().ToLower()];
         }
 
 
