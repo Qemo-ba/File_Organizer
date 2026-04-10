@@ -1,0 +1,30 @@
+[
+	{
+		"Extensions":  ".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".tiff", ".bmp", ".heic", ".raw", ".psd", ".ai", ".eps", ".ico" ],
+		"Destination": "images
+	},
+	{
+		"Extensions": [ ".pdf", ".doc", ".docx", ".txt", ".rtf", ".odt", ".pages", ".epub", ".md", ".log" ],
+		"Destination": "documents"
+	},
+	{
+		"Extensions": [ ".ppt", ".pptx", ".pptm", ".key", ".odp", ".ppsx" ],
+		"Destination": "presentations"
+	},
+	{
+		"Extensions": [ ".xls", ".xlsx", ".xlsm", ".csv", ".ods", ".numbers", ".tsv" ],
+		"Destination": "spreadsheets"
+	},
+	{
+		"Extensions": [ ".mp4", ".mov", ".avi", ".mkv", ".webm", ".flv", ".wmv", ".m4v", ".mpg", ".mpeg", ".ts" ],
+		"Destination": "videos"
+	},
+	{
+		"Extensions": [ ".mp3", ".wav", ".aac", ".flac", ".ogg", ".m4a", ".wma", ".aiff" ],
+		"Destination": "audio"
+	},
+	{
+		"Extensions": [ ".zip", ".rar", ".7z", ".tar", ".gz", ".pkg", ".dmg", ".iso" ],
+		"Destination": "archives"
+	}
+]

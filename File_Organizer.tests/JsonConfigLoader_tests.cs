@@ -1,19 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using System.IO;
+using System.Text.Json;
 
 namespace File_Organizer.tests
 {
     public class JsonConfigLoader_tests
     {
+
         [Fact]
-        public void LoadConfig_ValidFilePath_PrintsJsonContent()
+        public void LoadConfig_Fileloading_CreatesObjects_()
         {
-            File_Organizer.JsonConfigLoader jsonConfigLoader = new File_Organizer.JsonConfigLoader();
-            string filePath = "config.json";
-            string expectedOutput = "[\r\n  {\r\n    \"Extensions\": [ \".png\", \".jpg\", \".jpeg\", \".gif\", \".webp\", \".svg\", \".tiff\", \".bmp\", \".heic\", \".raw\", \".psd\", \".ai\", \".eps\", \".ico\" ],\r\n    \"Destination\": \"images\"\r\n  },\r\n  {\r\n    \"Extensions\": [ \".pdf\", \".doc\", \".docx\", \".txt\", \".rtf\", \".odt\", \".pages\", \".epub\", \".md\", \".log\" ],\r\n    \"Destination\": \"documents\"\r\n  },\r\n  {\r\n    \"Extensions\": [ \".ppt\", \".pptx\", \".pptm\", \".key\", \".odp\", \".ppsx\" ],\r\n    \"Destination\": \"presentations\"\r\n  },\r\n  {\r\n    \"Extensions\": [ \".xls\", \".xlsx\", \".xlsm\", \".csv\", \".ods\", \".numbers\", \".tsv\" ],\r\n    \"Destination\": \"spreadsheets\"\r\n  },\r\n  {\r\n    \"Extensions\": [ \".mp4\", \".mov\", \".avi\", \".mkv\", \".webm\", \".flv\", \".wmv\", \".m4v\", \".mpg\", \".mpeg\", \".ts\" ],\r\n    \"Destination\": \"videos\"\r\n  },\r\n  {\r\n    \"Extensions\": [ \".mp3\", \".wav\", \".aac\", \".flac\", \".ogg\", \".m4a\", \".wma\", \".aiff\" ],\r\n    \"Destination\": \"audio\"\r\n  },\r\n  {\r\n    \"Extensions\": [ \".zip\", \".rar\", \".7z\", \".tar\", \".gz\", \".pkg\", \".dmg\", \".iso\" ],\r\n    \"Destination\": \"archives\"\r\n  }\r\n]";
-            string actualOutput = File.ReadAllText(filePath);
-            Assert.Equal(expectedOutput, actualOutput);
+            string testFilePath = "C:\\Users\\qemal\\source\\repos\\File_Organizer\\File_Organizer.tests\\test_files\\test_config.json";
+            var result = JsonConfigLoader.LoadConfig(testFilePath);
+            //File not Null
+            Assert.NotNull(result);
+            //all objects created correctly
+            Assert.Equal(7, result.Count());
+            //check first two objects
+            Assert.Equal("images", result.ElementAt(0).Destination);
+            Assert.Equal(new List<string> { ".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".tiff", ".bmp", ".heic", ".raw", ".psd", ".ai", ".eps", ".ico" }, result.ElementAt(0).Extensions);
+            Assert.Equal("documents", result.ElementAt(1).Destination);
+            Assert.Equal(new List<string> { ".pdf", ".doc", ".docx", ".txt", ".rtf", ".odt", ".pages", ".epub", ".md", ".log" }, result.ElementAt(1).Extensions);
+        }
+        [Fact]
+        public void LoadConfig_FileNotFound_ThrowsFileNotFoundException()
+        {
+            string testFilePath = "file_not_found.json";
+            Assert.Throws<FileNotFoundException>(() => JsonConfigLoader.LoadConfig(testFilePath));
+        }
+
+        [Fact]
+        public void LoadConfig_InvalidJson_ThrowsJsonException()
+        {
+            string testFilePath = "C:\\Users\\qemal\\source\\repos\\File_Organizer\\File_Organizer.tests\\test_files\\invalid_config.json";
+            Assert.Throws<JsonException>(() => JsonConfigLoader.LoadConfig(testFilePath));
         }
     }
 }

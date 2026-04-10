@@ -8,15 +8,14 @@ namespace File_Organizer
     {
         private Dictionary<string, string> _extensionMapping = new Dictionary<string, string>();
 
-        public CategoryManager() {
-            RegisterExtensions("images", ".jpg", ".jpeg", ".png");
-            RegisterExtensions("documents", ".pdf", ".docx", ".txt");
-            RegisterExtensions("powerpoints", ".pptx", ".ppt");
-            RegisterExtensions("excel", ".xlsx", ".xls");
-            RegisterExtensions("videos", ".mp4");
+        public CategoryManager(IEnumerable<CategoryConfig> configData) {
+            foreach (var item in configData )
+            {
+                LoadDictionary(item.Destination, item.Extensions.ToArray());
+            }
         }
 
-        private void RegisterExtensions(string folder, params string[] extensions)
+        private void LoadDictionary(string folder, params string[] extensions)
         {
             foreach (var extension in extensions)
             {

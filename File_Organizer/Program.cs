@@ -16,8 +16,9 @@ namespace File_Organizer
                 Console.WriteLine("Der eingegebene Pfad ist ungültig. Bitte geben Sie einen gültigen Pfad ein:");
                 path = Console.ReadLine();
             }
-
-            CategoryManager categoryManager = new CategoryManager();
+            var configFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
+            var configData = JsonConfigLoader.LoadConfig(configFilePath);
+            CategoryManager categoryManager = new CategoryManager(configData);
             FileOrganizer fileOrganizer = new FileOrganizer(path, categoryManager);
             Console.WriteLine("\nDateien werden organisiert... ");
             fileOrganizer.StartOrganizing();
