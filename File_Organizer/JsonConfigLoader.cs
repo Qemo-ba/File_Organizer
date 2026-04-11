@@ -11,25 +11,20 @@ namespace File_Organizer
 
         public static IEnumerable<CategoryConfig> LoadConfig(string filePath)
         {
-            if (File.Exists(filePath))
-            {
-                try
-                {
-                    var jsonString = File.ReadAllText(filePath);
-                    var config = JsonSerializer.Deserialize<IEnumerable<CategoryConfig>>(jsonString);
-                    return config;
-                } catch (JsonException ex) 
-                {
-                        throw new JsonException($"Error parsing the configuration file '{filePath}': {ex.Message}");
-
-                } catch (Exception ex)
-                {
-                    throw new Exception($"An error occurred while loading the configuration file '{filePath}': {ex.Message}");
-                }                
+            if (!File.Exists(filePath))
+            { 
+                throw new FileNotFoundException($"The configuration file '{filePath}' was not found.");
             }
-
-            throw new FileNotFoundException($"The configuration file '{filePath}' was not found.");
-
+            try
+            {
+                var jsonString = File.ReadAllText(filePath);
+                var config = JsonSerializer.Deserialize<IEnumerable<CategoryConfig>>(jsonString);
+                if (config == null) { throw new ArgumentNullException($"The configuration file '{filePath}' is empty or has an invalid format."); }
+                return config;
+            } catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while loading the configuration file '{filePath}': {ex.Message}");
+            }                
         }
 
     }

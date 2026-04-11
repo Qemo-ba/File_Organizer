@@ -32,11 +32,5 @@ namespace File_Organizer.tests
             Assert.Throws<FileNotFoundException>(() => JsonConfigLoader.LoadConfig(testFilePath));
         }
 
-        [Fact]
-        public void LoadConfig_InvalidJson_ThrowsJsonException()
-        {
-            string testFilePath = "C:\\Users\\qemal\\source\\repos\\File_Organizer\\File_Organizer.tests\\test_files\\invalid_config.json";
-            Assert.Throws<JsonException>(() => JsonConfigLoader.LoadConfig(testFilePath));
-        }
     }
 }

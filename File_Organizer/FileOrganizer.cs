@@ -17,7 +17,7 @@ namespace File_Organizer
 
         public void StartOrganizing()
         {
-            List<string> files = Directory.GetFiles(_rootPath).ToList<string>();
+            var files = Directory.GetFiles(_rootPath);
 
             foreach (string file in files)
             {
@@ -35,11 +35,9 @@ namespace File_Organizer
 
             if (!Directory.Exists(pathFolder))
             {
-                Directory.CreateDirectory(pathFolder);
-                File.Move(filePath, finalPath);
-            } else {
-                File.Move(filePath, finalPath);
+                Directory.CreateDirectory(pathFolder);  
             }
+            File.Move(filePath, finalPath);
         }
     }
 }
