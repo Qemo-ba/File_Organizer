@@ -8,6 +8,7 @@ namespace File_Organizer
     {
         private string _rootPath;
         private CategoryManager _categoryManager;
+        Logger _instance = Logger.GetInstance();
 
         public FileOrganizer(string path, CategoryManager categoryManager)
         { 
@@ -21,9 +22,12 @@ namespace File_Organizer
 
             foreach (string file in files)
             {
+                var fileName = Path.GetFileName(file);
+                _instance.Info($"The File: {fileName} is being moved");
                 string ext = Path.GetExtension(file);
                 string folder = _categoryManager.GetTargetFolder(ext);
                 MoveFileToFolder(file, folder);
+                _instance.Success($"{file} moved to {folder}");
             }
 
         }
@@ -35,7 +39,8 @@ namespace File_Organizer
 
             if (!Directory.Exists(pathFolder))
             {
-                Directory.CreateDirectory(pathFolder);  
+                Directory.CreateDirectory(pathFolder);
+                _instance.Success($"Created destination Folder: {targetFolder}");
             }
             File.Move(filePath, finalPath);
         }
