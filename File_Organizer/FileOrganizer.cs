@@ -19,37 +19,46 @@ namespace File_Organizer
         public void StartOrganizing()
         {
             var files = Directory.GetFiles(_rootPath);
-
+            int filesMoved = 0;
+            int filesSkipped = 0;
+            int totalFiles = files.Length;
             foreach (string file in files)
             {
-                var fileName = Path.GetFileName(file);
-                _instance.Info($"The File: {fileName} is being moved");
                 string ext = Path.GetExtension(file);
                 string folder = _categoryManager.GetTargetFolder(ext);
-                MoveFileToFolder(file, folder);
-                _instance.Success($"{file} moved to {folder}");
+                if (MoveFileToFolder(file, folder))
+                {
+                    filesMoved++;
+                }else
+                {
+                    filesSkipped++;
+                }
             }
+            _instance.Info($"Total files: {totalFiles}\nMoved: {filesMoved}\nSkipped: {filesSkipped}");
 
         }
 
-        private void MoveFileToFolder(string filePath, string targetFolder)
+        private bool MoveFileToFolder(string filePath, string targetFolder)
         {
-            string pathFolder = Path.Combine(_rootPath, targetFolder);
             string fileName = Path.GetFileName(filePath);
+            string pathFolder = Path.Combine(_rootPath, targetFolder);
             string finalPath = Path.Combine(pathFolder, fileName);
 
+            _instance.Info($"Moving file: {fileName}");
             if (File.Exists(finalPath))
             {
                 _instance.Warning($"The file {fileName} already exists in {targetFolder}");
-                return;
+                return false;
             } 
             
-            else if (!Directory.Exists(pathFolder))
+            if (!Directory.Exists(pathFolder))
             {
                 Directory.CreateDirectory(pathFolder);
                 _instance.Success($"Created destination Folder: {targetFolder}");
             }
             File.Move(filePath, finalPath);
+            _instance.Success($"Moved file: {fileName} to {targetFolder}");
+            return true;
         }
     }
 }
