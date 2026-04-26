@@ -8,7 +8,7 @@ namespace File_Organizer
     {
         private string _rootPath;
         private CategoryManager _categoryManager;
-        Logger _instance = Logger.GetInstance();
+        private Logger _instance = Logger.GetInstance();
 
         public FileOrganizer(string path, CategoryManager categoryManager)
         { 
@@ -35,9 +35,16 @@ namespace File_Organizer
         private void MoveFileToFolder(string filePath, string targetFolder)
         {
             string pathFolder = Path.Combine(_rootPath, targetFolder);
-            string finalPath = Path.Combine(pathFolder, Path.GetFileName(filePath));
+            string fileName = Path.GetFileName(filePath);
+            string finalPath = Path.Combine(pathFolder, fileName);
 
-            if (!Directory.Exists(pathFolder))
+            if (File.Exists(finalPath))
+            {
+                _instance.Warning($"The file {fileName} already exists in {targetFolder}");
+                return;
+            } 
+            
+            else if (!Directory.Exists(pathFolder))
             {
                 Directory.CreateDirectory(pathFolder);
                 _instance.Success($"Created destination Folder: {targetFolder}");
