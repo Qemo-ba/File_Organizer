@@ -21,7 +21,7 @@ namespace File_Organizer
                 var config = JsonSerializer.Deserialize<IEnumerable<CategoryConfig>>(jsonString);
                 if (config == null) { throw new ArgumentNullException($"The configuration file '{filePath}' is empty or has an invalid format."); }
                 return config;
-            } catch (Exception ex)
+            } catch (JsonException ex)
             {
                 throw new Exception($"An error occurred while loading the configuration file '{filePath}': {ex.Message}");
             }                

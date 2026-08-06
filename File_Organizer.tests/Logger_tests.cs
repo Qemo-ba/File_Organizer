@@ -19,6 +19,7 @@ namespace File_Organizer.tests
         [Fact]
         public void Logger_ConsoleOutput_Test()
         {
+            string nl = Environment.NewLine;
             Logger _instance = Logger.GetInstance();
 
             var originalOut = Console.Out;
@@ -31,7 +32,7 @@ namespace File_Organizer.tests
 
             var output = stringWriter.ToString();
             Console.SetOut(originalOut);
-            Assert.Equal("Info: I'm informing\r\nSuccess: Succes message\r\nWarning: Warn message\r\nError: Error message\r\n", output);
+            Assert.Equal($"Info: I'm informing{nl}Success: Succes message{nl}Warning: Warn message{nl}Error: Error message{nl}", output);
         }
 
     }

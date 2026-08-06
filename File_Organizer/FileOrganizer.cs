@@ -8,7 +8,7 @@ namespace File_Organizer
     {
         private string _rootPath;
         private CategoryManager _categoryManager;
-        private Logger _instance = Logger.GetInstance();
+        private Logger _logger = Logger.GetInstance();
 
         public FileOrganizer(string path, CategoryManager categoryManager)
         { 
@@ -34,7 +34,7 @@ namespace File_Organizer
                     filesSkipped++;
                 }
             }
-            _instance.Info($"Total files: {totalFiles}\nMoved: {filesMoved}\nSkipped: {filesSkipped}");
+            _logger.Info($"Total files: {totalFiles}\nMoved: {filesMoved}\nSkipped: {filesSkipped}");
 
         }
 
@@ -44,20 +44,20 @@ namespace File_Organizer
             string pathFolder = Path.Combine(_rootPath, targetFolder);
             string finalPath = Path.Combine(pathFolder, fileName);
 
-            _instance.Info($"Moving file: {fileName}");
+            _logger.Info($"Moving file: {fileName}");
             if (File.Exists(finalPath))
             {
-                _instance.Warning($"The file {fileName} already exists in {targetFolder}");
+                _logger.Warning($"The file {fileName} already exists in {targetFolder}");
                 return false;
             } 
             
             if (!Directory.Exists(pathFolder))
             {
                 Directory.CreateDirectory(pathFolder);
-                _instance.Success($"Created destination Folder: {targetFolder}");
+                _logger.Success($"Created destination Folder: {targetFolder}");
             }
             File.Move(filePath, finalPath);
-            _instance.Success($"Moved file: {fileName} to {targetFolder}");
+            _logger.Success($"Moved file: {fileName} to {targetFolder}");
             return true;
         }
     }

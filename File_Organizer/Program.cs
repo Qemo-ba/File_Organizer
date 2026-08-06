@@ -12,9 +12,8 @@ namespace File_Organizer
             FileOrganizer fileOrganizer;
 
             Console.WriteLine("Geben Sie den Pfad zum Ordner ein, den Sie organisieren möchten:");
-            string path = Console.ReadLine();
-
-            while (!Directory.Exists(path))
+            string? path = Console.ReadLine();
+            while (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
             {
                 Console.WriteLine("Der eingegebene Pfad ist ungültig. Bitte geben Sie einen gültigen Pfad ein:");
                 path = Console.ReadLine();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Security;
 using System.Text;
 
 namespace File_Organizer
@@ -9,50 +10,68 @@ namespace File_Organizer
     public class Logger
     {
         private static Logger instance;
+        private static readonly object _lock = new object();
+        private readonly string _logFilePath;
 
-        private Logger() { }
+        private Logger() 
+        {
+            _logFilePath = Path.Combine(AppContext.BaseDirectory, "log.txt");
+        }
 
         public static Logger GetInstance()
         {
-            if (instance == null) { instance = new Logger(); }
-            return instance;
+            lock (_lock)
+            {
+                if (instance == null) { instance = new Logger(); }
+                return instance;
+            }
         }
 
         public void Info(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("Info: ");
-            Console.ResetColor();
-            Console.WriteLine(message);
+            Write(
+                "Info",
+                message,
+                ConsoleColor.Blue
+            );
         }
 
         public void Success(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Success: ");
-            Console.ResetColor();
-            Console.WriteLine(message);
-            
+            Write(
+                "Success",
+                message,
+                ConsoleColor.Green
+            );
         }
 
         public void Warning(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("Warning: ");
-            Console.ResetColor();
-            Console.WriteLine(message);
-
-
+            Write(
+                "Warning",
+                message,
+                ConsoleColor.Yellow
+            );
         }
 
         public void Error(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("Error: ");
-            Console.ResetColor();
-            Console.WriteLine(message);
-            
+            Write(
+                "Error",
+                message,
+                ConsoleColor.Red
+            );
         }
 
+        public void Write(string level, string message, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write($"{level}: ");
+            Console.ResetColor();
+            Console.WriteLine(message);
+
+            string line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{level}] {message}";
+            File.AppendAllText(_logFilePath, line + Environment.NewLine);
+        }
     }
 }
