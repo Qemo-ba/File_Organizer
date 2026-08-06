@@ -63,15 +63,18 @@ namespace File_Organizer
             );
         }
 
-        public void Write(string level, string message, ConsoleColor color)
+        private void Write(string level, string message, ConsoleColor color)
         {
-            Console.ForegroundColor = color;
-            Console.Write($"{level}: ");
-            Console.ResetColor();
-            Console.WriteLine(message);
+            lock (_lock)
+            {
+                Console.ForegroundColor = color;
+                Console.Write($"{level}: ");
+                Console.ResetColor();
+                Console.WriteLine(message);
 
-            string line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{level}] {message}";
-            File.AppendAllText(_logFilePath, line + Environment.NewLine);
+                string line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{level}] {message}";
+                File.AppendAllText(_logFilePath, line + Environment.NewLine);
+            }
         }
     }
 }
