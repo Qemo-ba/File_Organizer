@@ -7,7 +7,7 @@ namespace File_Organizer
     public class CategoryManager
     {
         private Dictionary<string, string> _extensionMapping = new Dictionary<string, string>();
-        Logger _instance = Logger.GetInstance();
+        private Logger _instance = Logger.GetInstance();
 
         public CategoryManager(IEnumerable<CategoryConfig> configData) {
             if (configData == null) { throw new ArgumentNullException(nameof(configData), "Configuration data cannot be null."); }
