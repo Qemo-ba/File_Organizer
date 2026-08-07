@@ -1,6 +1,7 @@
 [Dd]ebug/
 [Rr]elease/
 bin/
+dist/
 obj/
 .vs/
 *.suo
