@@ -1,14 +1,10 @@
-# =============================================================
 #  publish.ps1  -  Baut ein fertiges Download-Paket
 #
-#  Aufruf (im Projekt-Stammordner):
-#     .\publish.ps1                  -> baut fuer Windows (win-x64)
-#     .\publish.ps1 -Runtime osx-arm64   -> baut fuer Mac (Apple Silicon)
-#     .\publish.ps1 -Runtime osx-x64     -> baut fuer Mac (Intel)
-#     .\publish.ps1 -Runtime linux-x64   -> baut fuer Linux
-#
+# .\publish.ps1 -> baut fuer Windows (win-x64)
+# .\publish.ps1 -Runtime osx-arm64
+# .\publish.ps1 -Runtime osx-x64
+# .\publish.ps1 -Runtime linux-x64
 #  Ergebnis: FileOrganizer-<Runtime>.zip  (enthaelt .exe + config.json + README)
-# =============================================================
 
 param(
     [string]$Runtime = "win-x64"
@@ -44,9 +40,35 @@ if (Test-Path $readme) {
     Copy-Item $readme $outDir -Force
 }
 
+# config.json ins Paket legen
+$config = Join-Path $PSScriptRoot "File_Organizer\config.json"
+if (Test-Path $config) {
+    Copy-Item $config $outDir -Force
+} else {
+    Write-Host "WARNUNG: config.json nicht gefunden unter $config" -ForegroundColor Yellow
+}
+
 # Altes ZIP loeschen und neu packen
 if (Test-Path $zip) { Remove-Item $zip -Force }
-Compress-Archive -Path "$outDir\*" -DestinationPath $zip
+
+# Retry-Logik: Datei kann noch vom Build/Antivirus gesperrt sein
+$maxRetries = 5
+$retryDelay = 2  # Sekunden
+for ($i = 1; $i -le $maxRetries; $i++) {
+    try {
+        Compress-Archive -Path "$outDir\*" -DestinationPath $zip -ErrorAction Stop
+        break  # Erfolg -> Schleife verlassen
+    }
+    catch {
+        if ($i -eq $maxRetries) {
+            Write-Host "ZIP-Erstellung fehlgeschlagen nach $maxRetries Versuchen:" -ForegroundColor Red
+            Write-Host $_.Exception.Message -ForegroundColor Red
+            exit 1
+        }
+        Write-Host "Datei noch gesperrt, warte ${retryDelay}s... (Versuch $i/$maxRetries)" -ForegroundColor Yellow
+        Start-Sleep -Seconds $retryDelay
+    }
+}
 
 Write-Host ""
 Write-Host "Fertig!" -ForegroundColor Green
