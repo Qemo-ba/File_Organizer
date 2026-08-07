@@ -29,23 +29,19 @@ namespace File_Organizer
             {
                 Console.WriteLine($"Fehler beim Laden der Konfigurationsdatei: {ex.Message}");
                 Console.WriteLine("Das Programm wird beendet.");
-                Console.WriteLine("\nDrücken Sie eine beliebige Taste, um das Fenster zu schliessen...");
-                Console.ReadKey();
+                Pause();
                 return;
             }
-            
-            Console.WriteLine("\nDateien werden organisiert... ");
-            try
-            {
-                fileOrganizer.StartOrganizing();
-                Console.WriteLine("Dateien wurden organisiert!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Fehler beim Organisieren der Dateien: {ex.Message}");
-            }
 
-            Console.WriteLine("\nDrücken Sie eine beliebige Taste, um das Fenster zu schliessen...");
+            Console.WriteLine("\nDateien werden organisiert... ");
+            fileOrganizer.StartOrganizing();
+            Console.WriteLine("Dateien wurden organisiert!");
+            Pause();
+        }
+
+        private static void Pause()
+        {
+            Console.WriteLine("\nDrücken Sie eine beliebige Taste zum Beenden...");
             Console.ReadKey();
         }
     }

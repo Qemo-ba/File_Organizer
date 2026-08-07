@@ -1,8 +1,10 @@
 [Dd]ebug/
 [Rr]elease/
 bin/
+dist/
 obj/
 .vs/
+.vscode/
 *.suo
 *.user
 packages/
