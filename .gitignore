@@ -4,6 +4,7 @@ bin/
 dist/
 obj/
 .vs/
+.vscode/
 *.suo
 *.user
 packages/
