@@ -16,7 +16,6 @@ namespace File_Organizer
         private Logger() 
         {
             _logFilePath = Path.Combine(AppContext.BaseDirectory, "log.txt");
-            Console.WriteLine($"Log-Datei: {_logFilePath}");
         }
 
         public static Logger GetInstance()
